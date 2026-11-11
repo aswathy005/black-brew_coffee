@@ -1,0 +1,153 @@
+/* Realistic CSS Animated Coffee Steam */
+.steam-wrapper {
+  position: absolute;
+  top: 4%;
+  left: 50%;
+  transform: translateX(-35%);
+  width: 170px;
+  height: 150px;
+  pointer-events: none;
+  z-index: 4;
+  filter: blur(8px);
+}
+
+.steam-wisp {
+  position: absolute;
+  bottom: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(255, 232, 180, 0.14) 45%,
+    rgba(255, 201, 40, 0) 75%
+  );
+  opacity: 0;
+  animation: coffeeSteamRise 5.2s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.steam-wisp--1 {
+  left: 18%;
+  width: 48px;
+  height: 82px;
+  animation-delay: 0s;
+  animation-duration: 4.8s;
+}
+
+.steam-wisp--2 {
+  left: 42%;
+  width: 58px;
+  height: 98px;
+  animation-delay: 1.4s;
+  animation-duration: 5.4s;
+}
+
+.steam-wisp--3 {
+  left: 60%;
+  width: 42px;
+  height: 76px;
+  animation-delay: 2.7s;
+  animation-duration: 4.9s;
+}
+
+.steam-wisp--4 {
+  left: 30%;
+  width: 50px;
+  height: 88px;
+  animation-delay: 3.6s;
+  animation-duration: 5.8s;
+}
+
+@keyframes coffeeSteamRise {
+  0% {
+    transform: translateY(12px) translateX(0px) scaleX(0.75) scaleY(0.7);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(-48px) translateX(-10px) scaleX(1.1) scaleY(1.15);
+    opacity: 0.4;
+  }
+  80% {
+    transform: translateY(-96px) translateX(8px) scaleX(1.35) scaleY(1.4);
+    opacity: 0.18;
+  }
+  100% {
+    transform: translateY(-134px) translateX(-4px) scaleX(1.55) scaleY(1.6);
+    opacity: 0;
+  }
+}
+
+/* Subtle Animated Yellow Background Glow */
+@keyframes goldAmbientPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.52;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.78;
+  }
+}
+
+.hero-glow-pulse {
+  animation: goldAmbientPulse 6s ease-in-out infinite;
+}
+
+/* Scroll Down Mouse Indicator Wheel */
+@keyframes scrollWheelBounce {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  60% {
+    transform: translateY(6px);
+    opacity: 0.25;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.scroll-wheel-dot {
+  animation: scrollWheelBounce 1.8s ease-in-out infinite;
+}
+
+/* Ken Burns Video Modal Effect */
+@keyframes kenBurnsSlow {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.09) translate(-1.5%, -1%);
+  }
+  100% {
+    transform: scale(1) translate(0, 0);
+  }
+}
+
+.ken-burns-frame {
+  animation: kenBurnsSlow 14s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .steam-wisp,
+  .hero-glow-pulse,
+  .scroll-wheel-dot,
+  .ken-burns-frame {
+    animation: none;
+  }
+
+  .steam-wrapper {
+    opacity: 0.28;
+  }
+
+  .menu__cards-track {
+    scroll-behavior: auto;
+  }
+}
+

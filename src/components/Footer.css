@@ -1,0 +1,123 @@
+.footer {
+  position: relative;
+  z-index: 2;
+  background: rgba(8, 8, 8, 0.96);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 28px 0 22px;
+}
+
+.footer__main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footer__links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footer__link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #dcdcdc;
+  transition: color 0.22s ease;
+}
+
+.footer__link:hover {
+  color: var(--color-gold);
+}
+
+.footer__socials {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer__social-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 201, 40, 0.35);
+  background: rgba(255, 201, 40, 0.04);
+  color: var(--color-gold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.24s ease;
+}
+
+.footer__social-btn:hover {
+  background: var(--color-gold);
+  color: #080808;
+  border-color: var(--color-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255, 201, 40, 0.28);
+}
+
+.footer__copy {
+  font-size: 0.82rem;
+  color: var(--color-dim);
+}
+
+.footer__meta {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px 28px;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+}
+
+.footer__meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer__meta-icon {
+  color: var(--color-gold);
+  flex-shrink: 0;
+}
+
+.footer__meta-link {
+  transition: color 0.2s ease;
+}
+
+.footer__meta-link:hover {
+  color: var(--color-gold);
+}
+
+@media (max-width: 1024px) {
+  .footer__main {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .footer__meta {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer__links {
+    gap: 14px 18px;
+    justify-content: center;
+  }
+
+  .footer__meta {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+  }
+}
+
