@@ -84,18 +84,22 @@
   background: #111111;
   border: 1px solid rgba(255, 255, 255, 0.08);
   overflow: hidden;
-  transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, transform 0.25s ease;
 }
 
 .faq-card:hover {
-  border-color: rgba(255, 201, 40, 0.3);
-  background: #141414;
+  border-color: rgba(255, 201, 40, 0.38);
+  background: #151310;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5), 0 0 16px rgba(255, 201, 40, 0.06);
+  transform: translateY(-2px);
 }
 
 .faq-card--open {
   background: #151310;
-  border-color: rgba(255, 201, 40, 0.45);
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.6), 0 0 24px rgba(255, 201, 40, 0.08);
+  border-color: rgba(255, 201, 40, 0.48);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.65), 0 0 24px rgba(255, 201, 40, 0.09);
+  transform: translateY(-2px);
 }
 
 /* Header Button */
@@ -171,11 +175,15 @@
   transition: color 0.25s ease;
 }
 
+.faq-card:hover .faq-card__icon-wrap,
+.faq-card--open .faq-card__icon-wrap,
 .faq-card__icon-wrap--active {
   background: rgba(255, 201, 40, 0.16);
   border-color: rgba(255, 201, 40, 0.4);
 }
 
+.faq-card:hover .faq-card__chevron,
+.faq-card--open .faq-card__chevron,
 .faq-card__icon-wrap--active .faq-card__chevron {
   color: var(--color-gold, #FFC928);
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, HelpCircle, Coffee, Sparkles } from 'lucide-react';
 import { Reveal } from '../components/animations/Reveal';
@@ -44,10 +44,50 @@ const FAQ_ITEMS = [
 ];
 
 export function FaqSection({ onOpenOrder }) {
-  const [openId, setOpenId] = useState('origin'); // First item open by default
+  const [openId, setOpenId] = useState(null);
+  const [pinnedId, setPinnedId] = useState(null);
+  const leaveTimerRef = useRef(null);
 
-  const toggleItem = (id) => {
-    setOpenId((prev) => (prev === id ? null : id));
+  useEffect(() => {
+    return () => {
+      if (leaveTimerRef.current) {
+        clearTimeout(leaveTimerRef.current);
+      }
+    };
+  }, []);
+
+  const handleMouseEnter = (id) => {
+    if (leaveTimerRef.current) {
+      clearTimeout(leaveTimerRef.current);
+      leaveTimerRef.current = null;
+    }
+    // Hovering a card unpins any previous and expands the hovered card
+    setPinnedId(null);
+    setOpenId(id);
+  };
+
+  const handleMouseLeave = (id) => {
+    if (leaveTimerRef.current) {
+      clearTimeout(leaveTimerRef.current);
+    }
+    // Smooth grace period to allow cursor to cross gaps or settle
+    leaveTimerRef.current = setTimeout(() => {
+      setOpenId((curr) => (curr === id && pinnedId !== id ? null : curr));
+    }, 150);
+  };
+
+  const handleCardClick = (id) => {
+    if (leaveTimerRef.current) {
+      clearTimeout(leaveTimerRef.current);
+      leaveTimerRef.current = null;
+    }
+    if (pinnedId === id) {
+      setPinnedId(null);
+      setOpenId(null);
+    } else {
+      setPinnedId(id);
+      setOpenId(id);
+    }
   };
 
   return (
@@ -82,7 +122,7 @@ export function FaqSection({ onOpenOrder }) {
         {/* Accordion List */}
         <div className="faq-section__list" role="region" aria-label="Accordion Questions">
           {FAQ_ITEMS.map((item, index) => {
-            const isOpen = openId === item.id;
+            const isOpen = openId === item.id || pinnedId === item.id;
             const buttonId = `faq-btn-${item.id}`;
             const panelId = `faq-panel-${item.id}`;
 
@@ -90,18 +130,24 @@ export function FaqSection({ onOpenOrder }) {
               <Reveal key={item.id} delay={0.1 + index * 0.06}>
                 <div
                   className={`faq-card ${isOpen ? 'faq-card--open' : ''}`}
+                  onMouseEnter={() => handleMouseEnter(item.id)}
+                  onMouseLeave={() => handleMouseLeave(item.id)}
+                  onClick={() => handleCardClick(item.id)}
                 >
                   <button
                     type="button"
                     id={buttonId}
                     className="faq-card__header"
-                    onClick={() => toggleItem(item.id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleCardClick(item.id);
+                    }}
                     aria-expanded={isOpen}
                     aria-controls={panelId}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
-                        toggleItem(item.id);
+                        handleCardClick(item.id);
                       }
                     }}
                   >

@@ -26,7 +26,7 @@ const COLD_BREW_ITEM = FEATURED_MENU_ITEMS.find((i) => i.id === 'cold-brew') || 
   price: 140,
 };
 
-// 16 Dynamic Flying Coffee & Cream Droplets for liquid overflow physics
+// 14 Dynamic Flying Coffee & Cream Droplets for liquid splash physics
 const DROPLETS = [
   { id: 1, targetX: -140, targetY: -110, size: 10, maxScale: 1.4, peakProgress: 0.52 },
   { id: 2, targetX: -85, targetY: -160, size: 13, maxScale: 1.5, peakProgress: 0.50 },
@@ -42,18 +42,6 @@ const DROPLETS = [
   { id: 12, targetX: -160, targetY: -35, size: 6, maxScale: 1.0, peakProgress: 0.56 },
   { id: 13, targetX: 140, targetY: -40, size: 7, maxScale: 1.0, peakProgress: 0.57 },
   { id: 14, targetX: 0, targetY: -170, size: 11, maxScale: 1.5, peakProgress: 0.51 },
-  // Overflow splash droplets
-  { id: 15, targetX: -120, targetY: 45, size: 10, maxScale: 1.3, peakProgress: 0.78 },
-  { id: 16, targetX: 125, targetY: 48, size: 11, maxScale: 1.35, peakProgress: 0.80 },
-];
-
-// 5 Viscous Cascading Overflow Drips that stream down the glass facets as liquid overflows
-const OVERFLOW_DRIPS = [
-  { id: 'drip-1', left: '16%', width: 7, maxHeight: 190, range: [0.58, 0.82] },
-  { id: 'drip-2', left: '30%', width: 9, maxHeight: 270, range: [0.61, 0.85] },
-  { id: 'drip-3', left: '48%', width: 10, maxHeight: 310, range: [0.64, 0.88] },
-  { id: 'drip-4', left: '68%', width: 8, maxHeight: 240, range: [0.66, 0.90] },
-  { id: 'drip-5', left: '82%', width: 6, maxHeight: 170, range: [0.68, 0.92] },
 ];
 
 export function IcedSplashSection({ onQuickAdd, onExploreMenu }) {
@@ -155,26 +143,13 @@ export function IcedSplashSection({ onQuickAdd, onExploreMenu }) {
     [0, 0.88, 0.95]
   );
 
-  // 6. GLASS OVERFLOW ANIMATION (Liquid rises to brim & cascades down)
-  // Frothy overflow foam crown expands past the glass rim
-  const overflowCrownScale = useTransform(
-    smoothProgress,
-    [0.55, 0.70, 0.88],
-    [0, 1.15, 1.05]
-  );
-  const overflowCrownOpacity = useTransform(
-    smoothProgress,
-    [0.55, 0.62, 0.92, 1],
-    [0, 1, 1, 0.92]
-  );
-
-  // Chill vapor / frost mist billows around the overflowing glass
+  // Chill vapor / frost mist billows around the glass
   const chillMistOpacity = useTransform(
     smoothProgress,
-    [0.50, 0.66, 0.92],
-    [0, 0.72, 0.55]
+    [0.45, 0.65, 0.90],
+    [0, 0.65, 0.45]
   );
-  const chillMistScale = useTransform(smoothProgress, [0.50, 0.92], [0.8, 1.25]);
+  const chillMistScale = useTransform(smoothProgress, [0.45, 0.90], [0.85, 1.2]);
 
   // Listen for horizontal wheel scrolling to tilt/slide glass
   useEffect(() => {
@@ -208,10 +183,10 @@ export function IcedSplashSection({ onQuickAdd, onExploreMenu }) {
       id="iced-splash"
       ref={containerRef}
       className="iced-splash"
-      aria-label="Interactive 3D Artisanal Cold Brew Splash and Overflow"
+      aria-label="Interactive 3D Artisanal Cold Brew Splash and Milk Pour"
       onMouseMove={handleMouseMove}
     >
-      {/* Pinned Sticky Track: Stays pinned while ice drops, milk pours, and liquid overflows */}
+      {/* Pinned Sticky Track: Stays pinned while ice drops and milk pours */}
       <div className="iced-splash__sticky-track">
         {/* Ambient Dark & Gold Lighting */}
         <div className="iced-splash__ambient-glow" aria-hidden="true" />
@@ -235,7 +210,7 @@ export function IcedSplashSection({ onQuickAdd, onExploreMenu }) {
               <h2 className="iced-splash__title">
                 <span className="iced-splash__title-white">Cold Brew</span>
                 <span className="iced-splash__title-gold">
-                  Splash &amp; Overflow<span className="iced-splash__title-dot">.</span>
+                  Splash &amp; Pour<span className="iced-splash__title-dot">.</span>
                 </span>
               </h2>
             </Reveal>
@@ -243,8 +218,8 @@ export function IcedSplashSection({ onQuickAdd, onExploreMenu }) {
             <Reveal delay={0.18}>
               <p className="iced-splash__desc">
                 Scroll down to drop crystalline 3D ice cubes, pour fresh velvety milk,
-                and watch our artisanal single-origin cold brew fill to the brim and
-                cascade over the glass in pure liquid motion!
+                and watch our artisanal single-origin cold brew blend into rich marbled
+                cream in pure liquid motion!
               </p>
             </Reveal>
 
@@ -267,8 +242,8 @@ export function IcedSplashSection({ onQuickAdd, onExploreMenu }) {
               <div className="iced-splash__metric-item">
                 <Sparkles size={15} className="iced-splash__metric-icon" />
                 <div className="iced-splash__metric-text">
-                  <span className="iced-splash__metric-val">Overflow</span>
-                  <span className="iced-splash__metric-lbl">Rich Foam Rim</span>
+                  <span className="iced-splash__metric-val">Velvety Swirl</span>
+                  <span className="iced-splash__metric-lbl">Artisanal Crema</span>
                 </div>
               </div>
             </div>
@@ -298,7 +273,7 @@ export function IcedSplashSection({ onQuickAdd, onExploreMenu }) {
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Programmatic 3D Glass, Falling Ice, Milk Pour & Overflow */}
+          {/* RIGHT COLUMN: Programmatic 3D Glass, Falling Ice & Milk Pour */}
           <div
             ref={stageRef}
             className={`iced-splash__stage ${isDragging ? 'iced-splash__stage--dragging' : ''}`}
@@ -307,7 +282,7 @@ export function IcedSplashSection({ onQuickAdd, onExploreMenu }) {
             {/* Backlight Halo behind glass */}
             <div className="iced-splash__glass-halo" aria-hidden="true" />
 
-            {/* Chill Frost Mist rising as liquid overflows */}
+            {/* Chill Frost Mist rising around the chilled glass */}
             <motion.div
               className="iced-splash__chill-mist"
               style={{
@@ -466,53 +441,7 @@ export function IcedSplashSection({ onQuickAdd, onExploreMenu }) {
                   />
                 </div>
 
-                {/* 3. SPECTACULAR GLASS OVERFLOW (Rim Foam & Cascading Drips) */}
-                <div className="iced-splash__overflow-stage" aria-hidden="true">
-                  {/* Frothy Overflow Foam Crown */}
-                  <motion.div
-                    className="iced-splash__overflow-crown-wrap"
-                    style={{
-                      scaleY: shouldReduceMotion ? 1 : overflowCrownScale,
-                      opacity: shouldReduceMotion ? 1 : overflowCrownOpacity,
-                    }}
-                  >
-                    <OverflowCrownSvg />
-                  </motion.div>
-
-                  {/* Cascading Liquid Drips Running Down Outer Glass Facets */}
-                  <div className="iced-splash__drips-layer">
-                    {OVERFLOW_DRIPS.map((drip) => {
-                      const dripHeight = useTransform(
-                        smoothProgress,
-                        drip.range,
-                        [0, drip.maxHeight]
-                      );
-                      const dripOpacity = useTransform(
-                        smoothProgress,
-                        [drip.range[0], drip.range[0] + 0.04, 0.94, 1],
-                        [0, 1, 1, 0.92]
-                      );
-
-                      return (
-                        <motion.div
-                          key={drip.id}
-                          className="iced-splash__drip-stream"
-                          style={{
-                            left: drip.left,
-                            width: drip.width,
-                            height: shouldReduceMotion ? drip.maxHeight * 0.7 : dripHeight,
-                            opacity: shouldReduceMotion ? 1 : dripOpacity,
-                          }}
-                        >
-                          <div className="iced-splash__drip-head" />
-                          <div className="iced-splash__drip-bead" />
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* 4. 16 Flying Espresso-Cream Overflow Droplets */}
+                {/* 3. 14 Flying Espresso-Cream Splash Droplets */}
                 <div className="iced-splash__droplets-stage" aria-hidden="true">
                   {DROPLETS.map((drop) => {
                     const dropProgress = [
@@ -564,7 +493,7 @@ export function IcedSplashSection({ onQuickAdd, onExploreMenu }) {
             <div className="iced-splash__scroll-dot" />
           </div>
           <span className="iced-splash__scroll-text">
-            Scroll to Drop Ice, Pour Milk &amp; Overflow · Drag ↔ to Tilt Glass
+            Scroll to Drop Ice &amp; Pour Milk · Drag ↔ to Tilt Glass
           </span>
         </div>
       </div>
@@ -603,47 +532,6 @@ function MilkStreamSvg() {
         strokeLinecap="round"
         opacity="0.9"
       />
-    </svg>
-  );
-}
-
-/**
- * Frothy Overflow Cream Rim Foam Crown SVG.
- */
-function OverflowCrownSvg() {
-  return (
-    <svg viewBox="0 0 340 110" className="iced-splash__overflow-crown-svg" fill="none">
-      <defs>
-        <linearGradient id="overflowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#FFFDF7" />
-          <stop offset="30%" stopColor="#F7E7CE" />
-          <stop offset="68%" stopColor="#C8842A" />
-          <stop offset="100%" stopColor="#4A2608" />
-        </linearGradient>
-        <filter id="overflowShadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="4" stdDeviation="6" floodColor="#FFC928" floodOpacity="0.38" />
-        </filter>
-      </defs>
-      {/* Rich foamy cream cascading over rim */}
-      <path
-        d="M 28 48 
-           C 48 24 78 16 108 30 
-           C 134 14 168 12 194 26 
-           C 218 14 254 16 278 32 
-           C 304 26 324 42 316 62 
-           C 300 82 284 92 258 88 
-           C 238 100 214 104 188 86 
-           C 164 104 134 100 114 84 
-           C 88 96 64 90 44 74 
-           C 24 66 16 56 28 48 Z"
-        fill="url(#overflowGrad)"
-        filter="url(#overflowShadow)"
-      />
-      {/* Specular froth bubbles */}
-      <circle cx="115" cy="36" r="7" fill="#FFFFFF" opacity="0.82" />
-      <circle cx="152" cy="26" r="10" fill="#FFFFFF" opacity="0.92" />
-      <circle cx="196" cy="30" r="8" fill="#FFFFFF" opacity="0.88" />
-      <circle cx="236" cy="33" r="6" fill="#FFFFFF" opacity="0.78" />
     </svg>
   );
 }

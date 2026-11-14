@@ -76,22 +76,6 @@ export const FULL_MENU_ITEMS = [
     description: '70% single-origin dark couverture melted into fresh espresso and steamed cream.',
     image: cappuccinoImg,
   },
-  {
-    id: 'vanilla-cream-brew',
-    name: 'Vanilla Cream Cold Brew',
-    price: 160,
-    category: 'Cold Classics',
-    description: 'Velvety Madagascar vanilla sweet cream layered slowly over crisp cold brew.',
-    image: icedCoffeeImg,
-  },
-  {
-    id: 'classic-affogato',
-    name: 'Golden Espresso Affogato',
-    price: 195,
-    category: 'Signature Lattes',
-    description: 'Hot double ristretto poured over artisanal vanilla gelato with caramel crunch.',
-    image: heroCoffeeImg,
-  },
 ];
 
 export const TESTIMONIALS = [

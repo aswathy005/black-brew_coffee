@@ -13,7 +13,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUp } from 'lucide-react';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
-import { FloatingBeans } from './components/animations/FloatingBeans';
 import {
   OrderModal,
   GalleryModal,
@@ -240,9 +239,6 @@ export function App() {
           aria-hidden="true"
         />
 
-        {/* Floating Coffee Bean Decorations with Scroll-Linked Rotation & Y-Movement */}
-        <FloatingBeans />
-
         {/* Ambient Golden Wave Backdrop with Scroll Parallax */}
         <div className="ambient-backdrop" aria-hidden="true">
           <motion.svg
@@ -351,9 +347,14 @@ export function App() {
                 transition={{ duration: 0.25 }}
               >
                 <AboutPage
+                  onNavigateHome={(target) => handleNavigate(target || 'home', true)}
                   onBackHome={() => handleNavigate('home', true)}
                   onExploreMenu={() => handleNavigate('menu', false)}
                   onNavigate={handleNavigate}
+                  onOpenGallery={() => setActiveModal('gallery')}
+                  onOpenOrder={() => setActiveModal('order')}
+                  onOpenLocation={() => setActiveModal('location')}
+                  cartCount={cartCount}
                 />
               </motion.div>
             )}

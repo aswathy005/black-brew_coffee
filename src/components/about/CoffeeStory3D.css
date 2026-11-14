@@ -1,0 +1,311 @@
+/* ==========================================================================
+   COFFEE STORY 3D — CINEMATIC SCROLL-DRIVEN 3D STORYTELLING
+   Obsidian (#080808) & Gold (#FFC928) Luxury Aesthetic
+   ========================================================================== */
+
+.coffee-story {
+  position: relative;
+  width: 100%;
+  background-color: #080808;
+  color: #ffffff;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Pinned Viewport Container                                                 */
+/* -------------------------------------------------------------------------- */
+.coffee-story__pin {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background-color: #080808;
+}
+
+/* Three.js Canvas */
+.coffee-story__canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  touch-action: pan-y;
+  z-index: 1;
+}
+
+/* Soft dark gradient vignette behind HUD text */
+.coffee-story__gradient-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 38vh;
+  background: linear-gradient(180deg, rgba(8, 8, 8, 0.88) 0%, rgba(8, 8, 8, 0.45) 55%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Bottom gradient vignette for progress bar readability */
+.coffee-story__gradient-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 24vh;
+  background: linear-gradient(0deg, rgba(8, 8, 8, 0.9) 0%, rgba(8, 8, 8, 0.35) 60%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  HUD Overlay (DOM layer above canvas)                                      */
+/* -------------------------------------------------------------------------- */
+.coffee-story__hud {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(28px, 6vh, 56px) clamp(24px, 5vw, 64px) clamp(24px, 4vh, 40px);
+  box-sizing: border-box;
+}
+
+/* Top Area: Stepper & Copy */
+.coffee-hud__top {
+  max-width: 680px;
+}
+
+/* Animated Text Block on Scene Change */
+.coffee-hud__copy {
+  animation: hudEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform, filter;
+}
+
+@keyframes hudEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.coffee-hud__title {
+  font-family: var(--font-sans);
+  font-size: clamp(2rem, 4.4vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.14;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+  margin: 0 0 14px 0;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.85);
+}
+
+.hud-gold-italic {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--color-gold, #ffc928);
+  display: inline-block;
+  margin-left: 6px;
+}
+
+.coffee-hud__tagline {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+  font-style: italic;
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  line-height: 1.6;
+  color: #e2e2e2;
+  margin: 0 0 24px 0;
+  max-width: 560px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
+}
+
+/* Scene 4 Call-to-Action Button */
+.coffee-hud__cta {
+  pointer-events: auto;
+  margin-top: 10px;
+  animation: ctaFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes ctaFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.coffee-hud__cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #ffd700 0%, #ffc928 50%, #e5a800 100%);
+  color: #080808;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.98rem;
+  letter-spacing: 0.04em;
+  padding: 14px 32px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 12px 32px rgba(255, 201, 40, 0.38), 0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.coffee-hud__cta-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 18px 40px rgba(255, 201, 40, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+}
+
+.coffee-hud__cta-btn svg {
+  transition: transform 0.28s ease;
+}
+
+.coffee-hud__cta-btn:hover svg {
+  transform: translateX(4px);
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Bottom HUD: Progress Bar & Scroll Hint                                     */
+/* -------------------------------------------------------------------------- */
+.coffee-hud__bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 24px;
+}
+
+.coffee-hud__scroll-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-gold, #ffc928);
+  opacity: 0.85;
+}
+
+.coffee-hud__scroll-hint svg {
+  animation: bounceHint 1.8s infinite ease-in-out;
+}
+
+@keyframes bounceHint {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Loader State                                                              */
+/* -------------------------------------------------------------------------- */
+.coffee-story__loader {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background-color: #080808;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  transition: opacity 0.5s ease;
+}
+
+.coffee-story__spinner {
+  width: 38px;
+  height: 38px;
+  border: 3px solid rgba(255, 201, 40, 0.2);
+  border-top-color: #ffc928;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.coffee-story__loader-text {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-gold, #ffc928);
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Reduced Motion Fallback                                                   */
+/* -------------------------------------------------------------------------- */
+.coffee-story-reduced {
+  padding: 60px 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.coffee-story-reduced__scene {
+  margin-bottom: 80px;
+  text-align: center;
+}
+
+.coffee-story-reduced__img {
+  width: 100%;
+  max-width: 680px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Responsive Adjustments                                                    */
+/* -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .coffee-story__hud {
+    padding: 84px 20px 28px;
+  }
+
+  .coffee-hud__title {
+    font-size: 1.85rem;
+  }
+
+  .coffee-hud__tagline {
+    font-size: 0.96rem;
+    margin-bottom: 16px;
+  }
+
+  .coffee-hud__scroll-hint {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .coffee-hud__title {
+    font-size: 1.6rem;
+  }
+
+  .coffee-hud__cta-btn {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+    width: 100%;
+    justify-content: center;
+  }
+}

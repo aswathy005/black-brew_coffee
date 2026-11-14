@@ -101,4 +101,3 @@ export function useCard3DTilt({ maxTilt = 8, lift = -10 } = {}) {
 }
 
 export default useCard3DTilt;
-

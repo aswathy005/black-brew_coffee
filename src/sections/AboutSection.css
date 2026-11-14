@@ -60,25 +60,6 @@
   aspect-ratio: 1;
 }
 
-/* Scroll-Reactive Falling Coffee Beans Layer */
-.about__falling-beans-layer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 10;
-  overflow: visible;
-}
-
-.about__falling-bean {
-  will-change: transform, opacity;
-  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.88)) drop-shadow(0 2px 6px rgba(255, 201, 40, 0.22));
-}
-
-.about__bean-svg {
-  display: block;
-  overflow: visible;
-}
-
 .about__chapter-img-wrap {
   position: absolute;
   inset: 0;

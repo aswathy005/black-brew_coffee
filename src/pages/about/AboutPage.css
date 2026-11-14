@@ -1,0 +1,221 @@
+/* ==========================================================================
+   ABOUT PAGE STYLING
+   ========================================================================== */
+
+.about-page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--color-bg-primary, #080808);
+  color: var(--color-white, #ffffff);
+  overflow-x: clip;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Section B: Brand Statement & Philosophy                                    */
+/* -------------------------------------------------------------------------- */
+
+.about-brand {
+  position: relative;
+  background: linear-gradient(180deg, #080808 0%, #0d0d0d 45%, #080808 100%);
+  padding: 130px 0 140px;
+  border-top: 1px solid rgba(255, 201, 40, 0.14);
+  z-index: 5;
+}
+
+.about-brand::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(800px, 90vw);
+  height: 2px;
+  background: radial-gradient(circle, #ffc928 0%, rgba(255, 201, 40, 0.4) 40%, transparent 100%);
+  box-shadow: 0 0 24px rgba(255, 201, 40, 0.6);
+}
+
+.about-brand__header {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 64px;
+}
+
+.about-brand__eyebrow {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold, #ffc928);
+  margin-bottom: 16px;
+}
+
+.about-brand__title {
+  font-family: var(--font-sans);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+.about-brand__title-gold {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--color-gold, #ffc928);
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.about-brand__lead {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+  font-style: italic;
+  font-size: clamp(1.15rem, 2vw, 1.35rem);
+  line-height: 1.65;
+  color: #e2e2e2;
+  margin-bottom: 20px;
+}
+
+.about-brand__desc {
+  font-size: 1.02rem;
+  line-height: 1.8;
+  color: var(--color-muted, #bdbdbd);
+  max-width: 740px;
+  margin: 0 auto;
+}
+
+/* Philosophy 3-Column Highlights */
+.about-brand__pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-bottom: 72px;
+}
+
+.about-pillar-card {
+  position: relative;
+  background: rgba(18, 18, 18, 0.75);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg, 24px);
+  padding: 40px 32px;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+  overflow: hidden;
+}
+
+.about-pillar-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 201, 40, 0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.about-pillar-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 201, 40, 0.35);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 201, 40, 0.12);
+}
+
+.about-pillar-card:hover::before {
+  opacity: 1;
+}
+
+.about-pillar-card__num {
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--color-gold, #ffc928);
+  margin-bottom: 16px;
+  display: block;
+}
+
+.about-pillar-card__title {
+  font-family: var(--font-sans);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.about-pillar-card__desc {
+  font-size: 0.94rem;
+  line-height: 1.68;
+  color: var(--color-dim, #8a8a8a);
+}
+
+/* Buttons Section */
+.about-brand__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.about-brand__btn-home {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(18, 18, 18, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.96rem;
+  padding: 14px 28px;
+  border-radius: var(--radius-pill, 9999px);
+  transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+}
+
+.about-brand__btn-home:hover {
+  background: rgba(28, 28, 28, 0.95);
+  border-color: var(--color-gold, #ffc928);
+  color: var(--color-gold, #ffc928);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+}
+
+.about-brand__btn-home .btn-arrow-left {
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.about-brand__btn-home:hover .btn-arrow-left {
+  transform: translateX(-4px);
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .about-brand {
+    padding: 96px 0 110px;
+  }
+  .about-brand__pillars {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .about-pillar-card {
+    padding: 30px 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-brand__actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .about-brand__actions .btn-gold,
+  .about-brand__actions .about-brand__btn-home {
+    width: 100%;
+  }
+}

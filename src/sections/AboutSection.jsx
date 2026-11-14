@@ -37,130 +37,6 @@ const STORY_CHAPTERS = [
   },
 ];
 
-// Staggered Falling Coffee Beans that tumble down onto the image as the user scrolls
-const FALLING_BEANS = [
-  {
-    id: 1,
-    startX: -70,
-    targetX: -55,
-    startY: -210,
-    endY: 155,
-    rotStart: -45,
-    rotEnd: 260,
-    size: 34,
-    range: [0.03, 0.32],
-    zIndex: 6,
-  },
-  {
-    id: 2,
-    startX: 40,
-    targetX: 25,
-    startY: -250,
-    endY: 185,
-    rotStart: 30,
-    rotEnd: -310,
-    size: 28,
-    range: [0.08, 0.38],
-    zIndex: 7,
-  },
-  {
-    id: 3,
-    startX: -130,
-    targetX: -105,
-    startY: -190,
-    endY: 140,
-    rotStart: -20,
-    rotEnd: 190,
-    size: 24,
-    range: [0.15, 0.46],
-    zIndex: 4,
-  },
-  {
-    id: 4,
-    startX: 5,
-    targetX: -12,
-    startY: -260,
-    endY: 200,
-    rotStart: 60,
-    rotEnd: 420,
-    size: 40,
-    range: [0.20, 0.54],
-    zIndex: 8,
-  },
-  {
-    id: 5,
-    startX: 110,
-    targetX: 85,
-    startY: -220,
-    endY: 165,
-    rotStart: -60,
-    rotEnd: 230,
-    size: 32,
-    range: [0.28, 0.62],
-    zIndex: 6,
-  },
-  {
-    id: 6,
-    startX: -45,
-    targetX: -30,
-    startY: -240,
-    endY: 190,
-    rotStart: 45,
-    rotEnd: -240,
-    size: 36,
-    range: [0.36, 0.70],
-    zIndex: 7,
-  },
-  {
-    id: 7,
-    startX: 70,
-    targetX: 55,
-    startY: -200,
-    endY: 150,
-    rotStart: -30,
-    rotEnd: 290,
-    size: 26,
-    range: [0.44, 0.78],
-    zIndex: 5,
-  },
-  {
-    id: 8,
-    startX: -100,
-    targetX: -80,
-    startY: -230,
-    endY: 180,
-    rotStart: 75,
-    rotEnd: -190,
-    size: 30,
-    range: [0.52, 0.86],
-    zIndex: 6,
-  },
-  {
-    id: 9,
-    startX: 20,
-    targetX: 10,
-    startY: -270,
-    endY: 215,
-    rotStart: -40,
-    rotEnd: 360,
-    size: 38,
-    range: [0.60, 0.94],
-    zIndex: 8,
-  },
-  {
-    id: 10,
-    startX: -60,
-    targetX: -45,
-    startY: -225,
-    endY: 175,
-    rotStart: 50,
-    rotEnd: -280,
-    size: 32,
-    range: [0.68, 1.0],
-    zIndex: 7,
-  },
-];
-
 export function AboutSection({ onOpenStory }) {
   const sectionRef = useRef(null);
   const shouldReduceMotion = useReducedMotion();
@@ -213,7 +89,7 @@ export function AboutSection({ onOpenStory }) {
       <div className="about__sticky-track">
         <div className="container">
           <div className="about__grid">
-            {/* Left Column: Dynamic Story Images + Falling Coffee Beans on Scroll */}
+            {/* Left Column: Dynamic Story Images */}
             <Reveal direction="left" distance={50} duration={0.9} className="about__media-reveal-wrap">
               <motion.div
                 className="about__media"
@@ -222,19 +98,6 @@ export function AboutSection({ onOpenStory }) {
                 <div className="about__ambient-glow hero-glow-pulse" aria-hidden="true" />
 
                 <div className="about__images-stage">
-                {/* Scroll-Reactive Falling Coffee Beans Shower */}
-                <div className="about__falling-beans-layer" aria-hidden="true">
-                  {FALLING_BEANS.map((bean) => (
-                    <FallingBeanItem
-                      key={`falling-bean-${bean.id}`}
-                      bean={bean}
-                      scrollYProgress={scrollYProgress}
-                      isMobile={isMobile}
-                      shouldReduceMotion={shouldReduceMotion}
-                    />
-                  ))}
-                </div>
-
                 {/* Chapter 1 Image */}
                 <motion.div
                   className="about__chapter-img-wrap"
@@ -442,129 +305,6 @@ export function AboutSection({ onOpenStory }) {
         </div>
       </div>
     </section>
-  );
-}
-
-/**
- * Individual Falling Coffee Bean item that plunges onto the coffee image with scroll physics.
- */
-function FallingBeanItem({ bean, scrollYProgress, isMobile, shouldReduceMotion }) {
-  const [pStart, pEnd] = bean.range;
-  const pMid = pStart + (pEnd - pStart) * 0.65;
-  const pImpact = pStart + (pEnd - pStart) * 0.88;
-
-  const mult = isMobile ? 0.72 : 1;
-  const startY = bean.startY * mult;
-  const endY = bean.endY * mult;
-  const startX = bean.startX * mult;
-  const targetX = bean.targetX * mult;
-
-  // Kinetic downward fall with subtle impact bounce
-  const y = useTransform(
-    scrollYProgress,
-    [pStart, pMid, pImpact, pEnd],
-    [startY, (startY + endY) * 0.52, endY + 8, endY]
-  );
-
-  // Slight horizontal air drift
-  const x = useTransform(
-    scrollYProgress,
-    [pStart, pEnd],
-    [startX, targetX]
-  );
-
-  // Rotational tumbling
-  const rotate = useTransform(
-    scrollYProgress,
-    [pStart, pEnd],
-    [bean.rotStart, bean.rotEnd]
-  );
-
-  // Fade in smoothly as it enters from top, stay opaque during fall, and softly settle
-  const opacity = useTransform(
-    scrollYProgress,
-    [
-      Math.max(0, pStart - 0.04),
-      pStart + 0.02,
-      pEnd - 0.04,
-      Math.min(1, pEnd + 0.08),
-    ],
-    [0, 1, 1, 0.9]
-  );
-
-  const scale = useTransform(
-    scrollYProgress,
-    [pStart, pMid, pEnd],
-    [0.78, 1.06, 1.0]
-  );
-
-  if (shouldReduceMotion) {
-    return null;
-  }
-
-  return (
-    <motion.div
-      className="about__falling-bean"
-      style={{
-        position: 'absolute',
-        top: '32%',
-        left: '50%',
-        x,
-        y,
-        rotate,
-        scale,
-        opacity,
-        zIndex: bean.zIndex,
-        pointerEvents: 'none',
-      }}
-      aria-hidden="true"
-    >
-      <AboutBeanSvg size={Math.round(bean.size * mult)} />
-    </motion.div>
-  );
-}
-
-/**
- * Realistic vector coffee bean with roasted dark gradient and golden crema rim.
- */
-function AboutBeanSvg({ size = 32 }) {
-  return (
-    <svg
-      width={size}
-      height={Math.round(size * 1.35)}
-      viewBox="0 0 32 44"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="about__bean-svg"
-    >
-      <defs>
-        <linearGradient id={`aboutBeanGrad-${size}`} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#4A3420" />
-          <stop offset="40%" stopColor="#2A1B10" />
-          <stop offset="100%" stopColor="#120A05" />
-        </linearGradient>
-        <linearGradient id={`aboutBeanRim-${size}`} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#FFD142" stopOpacity="0.85" />
-          <stop offset="60%" stopColor="#FFC928" stopOpacity="0.45" />
-          <stop offset="100%" stopColor="#C98A00" stopOpacity="0.2" />
-        </linearGradient>
-      </defs>
-      {/* Outer Hull */}
-      <path
-        d="M16 2C8 2 2 9.5 2 22C2 34.5 8 42 16 42C24 42 30 34.5 30 22C30 9.5 24 2 16 2Z"
-        fill={`url(#aboutBeanGrad-${size})`}
-        stroke={`url(#aboutBeanRim-${size})`}
-        strokeWidth="1.6"
-      />
-      {/* Curved Center Crease */}
-      <path
-        d="M16 6C18.8 13.5 13.2 18.5 16 22C18.8 25.5 13.2 30.5 16 38"
-        stroke="#FFC928"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        opacity="0.9"
-      />
-    </svg>
   );
 }
 
