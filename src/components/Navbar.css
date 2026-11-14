@@ -1,22 +1,52 @@
+/* ==========================================================================
+   Navbar Component Styles
+   Scroll-Adaptive: Transparent at top -> Solid blurred dark coffee brown
+   ========================================================================== */
+
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 900;
-  padding: 20px 0;
-  transition: padding 0.32s ease, background-color 0.32s ease, border-color 0.32s ease,
-    box-shadow 0.32s ease;
+  width: 100%;
+  z-index: 1000;
+  transform: translateY(0);
+
+  /* Requirement 2: At the top of the page (scrollY <= 20px) */
+  background: transparent;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
   border-bottom: 1px solid transparent;
+  box-shadow: none;
+  padding: 22px 0;
+
+  /* Requirement 4: Smooth transition for all changes */
+  transition: all 0.4s ease;
 }
 
-.navbar--scrolled {
-  padding: 13px 0;
-  background: rgba(8, 8, 8, 0.82);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-bottom-color: rgba(255, 201, 40, 0.14);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55);
+/* Requirement 3: After scrolling (scrollY > 20px) or when mobile menu is open */
+.navbar--scrolled,
+.navbar--menu-open {
+  background: rgba(20, 12, 8, 0.75); /* dark coffee brown */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  padding: 12px 0; /* reduced padding */
+}
+
+/* Requirement 6: Hide on scroll down past 100px, show on scroll up */
+.navbar--hidden {
+  transform: translateY(-100%);
+}
+
+/* Requirement 9: Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .navbar {
+    transform: none !important;
+    transition: background-color 0.4s ease, border-color 0.4s ease,
+      box-shadow 0.4s ease, padding 0.4s ease !important;
+  }
 }
 
 .navbar__inner {
@@ -32,12 +62,13 @@
   gap: 8px;
 }
 
+/* Requirement 7: Text color stays cream/white and readable in both states */
 .navbar__link {
   position: relative;
   padding: 8px 18px;
   font-size: 0.92rem;
   font-weight: 500;
-  color: #e6e6e6;
+  color: #f5ede6; /* cream/white */
   border-radius: var(--radius-pill);
   transition: color 0.24s cubic-bezier(0.22, 1, 0.36, 1),
     background-color 0.24s cubic-bezier(0.22, 1, 0.36, 1);
@@ -110,11 +141,12 @@
   height: 42px;
   border-radius: 50%;
   border: 1px solid rgba(255, 201, 40, 0.28);
-  background: rgba(20, 20, 20, 0.85);
+  background: rgba(20, 12, 8, 0.85);
   color: #ffffff;
   align-items: center;
   justify-content: center;
   transition: border-color 0.2s ease, background-color 0.2s ease;
+  cursor: pointer;
 }
 
 .navbar__mobile-toggle:hover {
@@ -122,13 +154,15 @@
   color: var(--color-gold);
 }
 
+/* Requirement 8: Mobile drawer styling with blur */
 .navbar__mobile-drawer {
   overflow: hidden;
-  background: rgba(12, 12, 12, 0.96);
-  backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(255, 201, 40, 0.14);
+  background: rgba(20, 12, 8, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   border-bottom: 1px solid rgba(255, 201, 40, 0.18);
-  margin-top: 12px;
+  margin-top: 10px;
 }
 
 .navbar__mobile-list {
@@ -146,7 +180,7 @@
   border-radius: 12px;
   font-size: 1rem;
   font-weight: 500;
-  color: #e6e6e6;
+  color: #f5ede6;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
@@ -175,4 +209,3 @@
     padding: 10px 14px;
   }
 }
-

@@ -1,0 +1,396 @@
+/* ==========================================================================
+   Menu Section Styles
+   Theme: Dark Obsidian Coffee, Cream White, Warm Gold Accent (#ffc928)
+   Features: 3D Card Tilt, Moving Glare, 1.12x Image Zoom, TranslateZ Depth
+   ========================================================================== */
+
+.menu {
+  position: relative;
+  padding: 32px 0 var(--section-space);
+  z-index: 2;
+}
+
+.menu__layout {
+  display: grid;
+  grid-template-columns: 0.38fr minmax(0, 1fr);
+  align-items: center;
+  gap: 36px;
+}
+
+.menu__intro {
+  position: relative;
+}
+
+.menu__heading {
+  font-size: clamp(2rem, 3.2vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.14;
+  color: #ffffff;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.menu__desc {
+  color: var(--color-muted);
+  font-size: 0.98rem;
+  line-height: 1.68;
+  margin-bottom: 26px;
+  max-width: 310px;
+}
+
+.menu__carousel {
+  position: relative;
+  min-width: 0;
+}
+
+.menu__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.menu__scroll-hint {
+  font-size: 0.8rem;
+  color: var(--color-dim);
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+}
+
+.menu__auto-pulse {
+  display: inline-block;
+  width: 6.5px;
+  height: 6.5px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  margin-right: 7px;
+  box-shadow: 0 0 8px #ffc928;
+  animation: menuPulseDot 1.5s ease-in-out infinite;
+}
+
+.menu__auto-pulse--paused {
+  background: #888888;
+  box-shadow: none;
+  animation: none;
+}
+
+@keyframes menuPulseDot {
+  0%, 100% {
+    transform: scale(0.85);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+}
+
+.menu__nav-arrows {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.menu__arrow-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(24, 24, 24, 0.92);
+  border: 1px solid rgba(255, 201, 40, 0.3);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.menu__arrow-btn:hover:not(:disabled) {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: #080808;
+  box-shadow: 0 6px 18px rgba(255, 201, 40, 0.28);
+}
+
+.menu__arrow-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* ==========================================================================
+   Horizontal Track & 3D Card Wrappers
+   ========================================================================== */
+
+.menu__cards-track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: auto;
+  padding: 24px 6px 28px;
+  outline: none;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.menu__cards-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* Perspective wrapper for 3D tilt */
+.menu-card-wrapper {
+  perspective: 1000px;
+  flex: 0 0 216px;
+  display: flex;
+  transform-style: preserve-3d;
+}
+
+/* ==========================================================================
+   Menu Card: 3D Surface & Depth
+   ========================================================================== */
+
+.menu-card {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #181513 0%, #0d0c0a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 14px 14px 22px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+  transition: border-color 0.35s ease,
+              box-shadow 0.35s ease,
+              background 0.35s ease;
+}
+
+/* Desktop Hover Lift & Warm Glow */
+@media (hover: hover) and (pointer: fine) {
+  .menu-card:hover {
+    border-color: rgba(255, 201, 40, 0.72);
+    box-shadow: 0 22px 48px rgba(0, 0, 0, 0.75),
+                0 0 28px rgba(212, 165, 116, 0.25);
+    background: linear-gradient(180deg, #221a14 0%, #110e0c 100%);
+  }
+}
+
+/* Accessible Keyboard Focus-Visible */
+.menu-card:focus-visible {
+  transform: translateY(-10px);
+  border-color: var(--color-gold);
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.8),
+              0 0 28px rgba(212, 165, 116, 0.35);
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+/* Dynamic moving glare light overlay following the cursor */
+.menu-card__glare {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  pointer-events: none;
+  background: radial-gradient(
+    circle 180px at var(--glare-x, 50%) var(--glare-y, 50%),
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(212, 165, 116, 0.12) 32%,
+    transparent 72%
+  );
+  opacity: var(--glare-opacity, 0);
+  transition: opacity 0.32s ease;
+  z-index: 5;
+}
+
+/* ==========================================================================
+   Image Container, Zoom, & Subtle Dark Gradient
+   ========================================================================== */
+
+.menu-card__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1.06;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0a0a0a;
+  margin-bottom: 16px;
+  transform: translateZ(12px);
+  transform-style: preserve-3d;
+}
+
+.menu-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+  display: block;
+}
+
+/* 1.12x Image Zoom on hover or keyboard focus */
+.menu-card:hover .menu-card__img,
+.menu-card:focus-visible .menu-card__img {
+  transform: scale(1.12);
+}
+
+/* Deepening dark gradient overlay for crystal-clear readability */
+.menu-card__media-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(14, 9, 6, 0.55) 100%);
+  opacity: 0.35;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.menu-card:hover .menu-card__media-overlay,
+.menu-card:focus-visible .menu-card__media-overlay {
+  opacity: 0.75;
+}
+
+/* ==========================================================================
+   Quick-Add Button, Title, and Price (Physical 3D translateZ Depth)
+   ========================================================================== */
+
+.menu-card__add-pill {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(14, 9, 6, 0.88);
+  border: 1px solid rgba(255, 201, 40, 0.55);
+  color: var(--color-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateZ(30px) translateY(6px);
+  transition: opacity 0.25s ease,
+              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.2s ease,
+              color 0.2s ease;
+  cursor: pointer;
+  z-index: 6;
+}
+
+.menu-card:hover .menu-card__add-pill,
+.menu-card:focus-visible .menu-card__add-pill {
+  opacity: 1;
+  transform: translateZ(30px) translateY(0);
+}
+
+.menu-card__add-pill:hover {
+  background: var(--color-gold);
+  color: #080808;
+  box-shadow: 0 4px 14px rgba(255, 201, 40, 0.4);
+}
+
+.menu-card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 5px;
+  transform: translateZ(16px);
+  transition: color 0.25s ease;
+}
+
+.menu-card:hover .menu-card__title {
+  color: #ffe17d;
+}
+
+.menu-card__price {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--color-gold);
+  transform: translateZ(24px);
+  margin: 0;
+}
+
+/* ==========================================================================
+   Mobile & Touch Devices
+   ========================================================================== */
+
+@media (hover: none), (pointer: coarse) {
+  .menu-card__glare {
+    display: none;
+  }
+
+  .menu-card:active {
+    transform: scale(0.98);
+  }
+
+  .menu-card__add-pill {
+    opacity: 1;
+    transform: translateZ(30px) translateY(0);
+  }
+}
+
+@media (max-width: 1120px) {
+  .menu__layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .menu__intro {
+    text-align: center;
+  }
+
+  .menu__desc {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 440px;
+  }
+}
+
+@media (max-width: 580px) {
+  .menu-card-wrapper {
+    flex: 0 0 192px;
+  }
+
+  .menu__cards-track {
+    gap: 16px;
+    padding: 16px 4px 20px;
+  }
+
+  .menu__scroll-hint {
+    font-size: 0.74rem;
+  }
+}
+
+/* ==========================================================================
+   Reduced Motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-card {
+    will-change: auto;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+  }
+
+  .menu-card:hover {
+    transform: none !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+  }
+
+  .menu-card__img {
+    transition: none !important;
+  }
+
+  .menu-card:hover .menu-card__img {
+    transform: none !important;
+  }
+
+  .menu-card__glare {
+    display: none !important;
+  }
+}

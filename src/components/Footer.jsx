@@ -1,13 +1,15 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Instagram, Facebook, Youtube, MapPin, Clock, Phone, Mail } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
+import { Reveal } from './animations/Reveal';
 import { CAFE_INFO } from '../data/coffeeData';
 import './Footer.css';
 
 const FOOTER_LINKS = [
-  { id: 'home', label: 'Home', type: 'scroll' },
+  { id: 'home', label: 'Home', type: 'page' },
   { id: 'menu', label: 'Menu', type: 'scroll' },
-  { id: 'about', label: 'About', type: 'scroll' },
+  { id: 'about', label: 'About', type: 'page' },
   { id: 'gallery', label: 'Gallery', type: 'modal' },
   { id: 'reviews', label: 'Reviews', type: 'scroll' },
   { id: 'contact', label: 'Contact', type: 'location' },
@@ -28,103 +30,113 @@ export function Footer({ onNavigate, onOpenGallery, onOpenLocation }) {
       onOpenGallery();
     } else if (item.type === 'location') {
       onOpenLocation();
+    } else if (item.type === 'page') {
+      onNavigate(item.id, true);
     } else {
-      onNavigate(item.id);
+      onNavigate(item.id, false);
     }
   };
 
   return (
     <footer id="contact" className="footer">
       <div className="container">
-        <div className="footer__main">
-          <BrandLogo
-            size="sm"
-            onClick={(e) => {
-              e.preventDefault();
-              onNavigate('home');
-            }}
-          />
+        <Reveal distance={30} duration={0.8}>
+          <div className="footer__main">
+            <BrandLogo
+              size="sm"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigate('home', true);
+              }}
+            />
 
-          <nav className="footer__links" aria-label="Footer navigation">
-            {FOOTER_LINKS.map((item) => (
-              <a
-                key={item.id}
-                href={`#${item.id}`}
-                onClick={(e) => handleLinkClick(e, item)}
-                className="footer__link"
-              >
-                {item.label}
-              </a>
-            ))}
-          </nav>
+            <Reveal selector=".footer__link" stagger={0.08} distance={20} duration={0.7}>
+              <nav className="footer__links" aria-label="Footer navigation">
+                {FOOTER_LINKS.map((item) => (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    onClick={(e) => handleLinkClick(e, item)}
+                    className="footer__link"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+            </Reveal>
 
-          <div className="footer__socials" aria-label="Social media">
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noreferrer"
-              className="footer__social-btn"
-              aria-label="BLACK & BREW on Instagram"
+            <Reveal selector=".footer__social-btn" stagger={0.08} distance={20} duration={0.7}>
+              <div className="footer__socials" aria-label="Social media">
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="footer__social-btn"
+                  aria-label="BLACK & BREW on Instagram"
+                >
+                  <Instagram size={15} />
+                </a>
+                <a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="footer__social-btn"
+                  aria-label="BLACK & BREW on Facebook"
+                >
+                  <Facebook size={15} />
+                </a>
+                <a
+                  href="https://youtube.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="footer__social-btn"
+                  aria-label="BLACK & BREW on YouTube"
+                >
+                  <Youtube size={15} />
+                </a>
+                <a
+                  href="https://x.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="footer__social-btn"
+                  aria-label="BLACK & BREW on X"
+                >
+                  <XIcon />
+                </a>
+              </div>
+            </Reveal>
+
+            <p className="footer__copy">© 2026 BLACK &amp; BREW. All rights reserved.</p>
+          </div>
+        </Reveal>
+
+        <Reveal selector=".footer__meta-item" stagger={0.1} distance={22} duration={0.75} delay={0.15}>
+          <div className="footer__meta">
+            <button
+              type="button"
+              className="footer__meta-item footer__meta-link"
+              onClick={onOpenLocation}
             >
-              <Instagram size={15} />
+              <MapPin size={14} className="footer__meta-icon" />
+              <span>{CAFE_INFO.address}</span>
+            </button>
+
+            <div className="footer__meta-item">
+              <Clock size={14} className="footer__meta-icon" />
+              <span>{CAFE_INFO.hours}</span>
+            </div>
+
+            <a href={`tel:${CAFE_INFO.phone}`} className="footer__meta-item footer__meta-link">
+              <Phone size={14} className="footer__meta-icon" />
+              <span>{CAFE_INFO.phone}</span>
             </a>
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noreferrer"
-              className="footer__social-btn"
-              aria-label="BLACK & BREW on Facebook"
-            >
-              <Facebook size={15} />
-            </a>
-            <a
-              href="https://youtube.com"
-              target="_blank"
-              rel="noreferrer"
-              className="footer__social-btn"
-              aria-label="BLACK & BREW on YouTube"
-            >
-              <Youtube size={15} />
-            </a>
-            <a
-              href="https://x.com"
-              target="_blank"
-              rel="noreferrer"
-              className="footer__social-btn"
-              aria-label="BLACK & BREW on X"
-            >
-              <XIcon />
+
+            <a href={`mailto:${CAFE_INFO.email}`} className="footer__meta-item footer__meta-link">
+              <Mail size={14} className="footer__meta-icon" />
+              <span>{CAFE_INFO.email}</span>
             </a>
           </div>
-
-          <p className="footer__copy">© 2026 BLACK &amp; BREW. All rights reserved.</p>
-        </div>
-
-        <div className="footer__meta">
-          <button
-            type="button"
-            className="footer__meta-item footer__meta-link"
-            onClick={onOpenLocation}
-          >
-            <MapPin size={14} className="footer__meta-icon" />
-            <span>{CAFE_INFO.address}</span>
-          </button>
-
-          <div className="footer__meta-item">
-            <Clock size={14} className="footer__meta-icon" />
-            <span>{CAFE_INFO.hours}</span>
-          </div>
-
-          <a href={`tel:${CAFE_INFO.phone}`} className="footer__meta-item footer__meta-link">
-            <Phone size={14} className="footer__meta-icon" />
-            <span>{CAFE_INFO.phone}</span>
-          </a>
-
-          <a href={`mailto:${CAFE_INFO.email}`} className="footer__meta-item footer__meta-link">
-            <Mail size={14} className="footer__meta-icon" />
-            <span>{CAFE_INFO.email}</span>
-          </a>
-        </div>
+        </Reveal>
       </div>
     </footer>
   );

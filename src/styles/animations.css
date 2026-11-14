@@ -138,6 +138,8 @@
   .steam-wisp,
   .hero-glow-pulse,
   .scroll-wheel-dot,
+  .hero__coffee-bean-cursor,
+  .hero__bean-scroll-dot,
   .ken-burns-frame {
     animation: none;
   }

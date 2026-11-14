@@ -1,0 +1,143 @@
+.hero-about-stage {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: #080808;
+  z-index: 1;
+}
+
+.hero-about-stage__media {
+  position: absolute;
+  top: -5%;
+  bottom: -5%;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background-color: #080808;
+}
+
+/* Fallback Image (visible on reduced motion, save-data, load buffer, or mobile autoplay block) */
+.hero-about-stage__fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  filter: brightness(0.84) contrast(1.06) saturate(1.02);
+  transform: scale(1.02);
+  animation: heroStageBgZoom 24s ease-in-out infinite;
+  will-change: transform;
+  z-index: 0;
+}
+
+/* Single Continuous Background Video covering Hero + Features + About */
+.hero-about-stage__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.75s ease;
+  filter: brightness(0.98) contrast(1.06) saturate(1.06);
+  will-change: opacity, transform;
+  transform: scale(1) translateZ(0);
+}
+
+.hero-about-stage__video--ready {
+  opacity: 1;
+  animation: heroStageBgZoom 22s ease-in-out infinite;
+}
+
+@keyframes heroStageBgZoom {
+  0%,
+  100% {
+    transform: scale(1) translateZ(0);
+  }
+  50% {
+    transform: scale(1.065) translateZ(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-about-stage__fallback,
+  .hero-about-stage__video--ready {
+    animation: none;
+    transform: scale(1.02) translateZ(0);
+  }
+}
+
+/* Light, Transparent Dark Gradient Overlay + Bottom Seam Fade to #080808 */
+.hero-about-stage__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 8, 8, 0.54) 0%,
+    rgba(8, 8, 8, 0.16) 13%,
+    rgba(8, 8, 8, 0.2) 38%,
+    rgba(8, 8, 8, 0.34) 52%,
+    rgba(8, 8, 8, 0.22) 68%,
+    rgba(8, 8, 8, 0.42) 86%,
+    rgba(8, 8, 8, 0.9) 96%,
+    #080808 100%
+  );
+}
+
+/* Subtle Left Readability Scrim (leaves video clear across Hero & About) */
+.hero-about-stage__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 56% 36% at 72% 24%,
+      rgba(255, 201, 40, 0.08) 0%,
+      rgba(255, 201, 40, 0) 72%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(8, 8, 8, 0.52) 0%,
+      rgba(8, 8, 8, 0.22) 42%,
+      rgba(8, 8, 8, 0.04) 75%,
+      rgba(8, 8, 8, 0) 100%
+    );
+}
+
+/* Subtle Continuous Dark Bridge Transition between Hero and About */
+.hero-about-stage__bridge {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 44%;
+  height: 20%;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 95% 55% at 50% 50%,
+    rgba(8, 8, 8, 0.24) 0%,
+    rgba(8, 8, 8, 0.1) 55%,
+    rgba(8, 8, 8, 0) 100%
+  );
+}
+
+/* Foreground Sections Layer */
+.hero-about-stage__content {
+  position: relative;
+  z-index: 3;
+}
+
+@media (max-width: 768px) {
+  .hero-about-stage__video {
+    object-position: center 42%;
+  }
+}
+

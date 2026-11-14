@@ -1,0 +1,137 @@
+/* ==========================================================================
+   Infinite Typography Marquee
+   Visual identity: Pure black (#080808), Gold (#FFC928), Editorial stroked type
+   ========================================================================== */
+
+.brand-marquee-section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #080808;
+  border-top: 1px solid rgba(255, 201, 40, 0.14);
+  border-bottom: 1px solid rgba(255, 201, 40, 0.14);
+  padding: 18px 0;
+  user-select: none;
+  z-index: 5;
+}
+
+/* Subtle edge fade masks */
+.brand-marquee-section::before,
+.brand-marquee-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.brand-marquee-section::before {
+  left: 0;
+  background: linear-gradient(90deg, #080808 0%, rgba(8, 8, 8, 0) 100%);
+}
+
+.brand-marquee-section::after {
+  right: 0;
+  background: linear-gradient(270deg, #080808 0%, rgba(8, 8, 8, 0) 100%);
+}
+
+.brand-marquee__track-wrapper {
+  display: flex;
+  width: max-content;
+  overflow: hidden;
+}
+
+.brand-marquee__track {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  animation: marqueeContinuous 32s linear infinite;
+  will-change: transform;
+}
+
+.brand-marquee__track--reverse {
+  animation-direction: reverse;
+}
+
+.brand-marquee-section:hover .brand-marquee__track {
+  animation-play-state: paused;
+}
+
+.brand-marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 16px;
+  white-space: nowrap;
+}
+
+.brand-marquee__text {
+  font-family: var(--font-sans);
+  font-size: clamp(1.4rem, 2.4vw, 2.2rem);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* Solid Gold Highlight */
+.brand-marquee__text--gold {
+  color: var(--color-gold, #FFC928);
+  text-shadow: 0 0 24px rgba(255, 201, 40, 0.3);
+}
+
+/* Modern Turn360 Hollow Stroked Typography */
+.brand-marquee__text--outline {
+  color: transparent;
+  -webkit-text-stroke: 1.2px rgba(255, 255, 255, 0.75);
+  transition: -webkit-text-stroke 0.25s ease, color 0.25s ease;
+}
+
+.brand-marquee__item:hover .brand-marquee__text--outline {
+  color: #ffffff;
+  -webkit-text-stroke: 1.2px #ffffff;
+}
+
+.brand-marquee__separator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gold, #FFC928);
+  opacity: 0.8;
+}
+
+.brand-marquee__star {
+  animation: marqueePulse 2.4s ease-in-out infinite;
+}
+
+@keyframes marqueeContinuous {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+@keyframes marqueePulse {
+  0%, 100% {
+    transform: scale(0.9);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-marquee__track {
+    animation: none;
+  }
+  .brand-marquee__star {
+    animation: none;
+  }
+}
+

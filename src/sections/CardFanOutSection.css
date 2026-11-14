@@ -1,0 +1,345 @@
+/* Card Fan-Out Section Container */
+.fanout-container {
+  position: relative;
+  min-height: auto;
+  background-color: #080808;
+  z-index: 3;
+  padding: 36px 0 44px;
+  margin-bottom: 0;
+}
+
+/* Full-Screen Stage */
+.fanout-sticky {
+  position: relative;
+  top: 0;
+  width: 100%;
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  padding: 0 20px;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+/* Ambient Radial Golden Glow */
+.fanout__ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 740px;
+  height: 740px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 201, 40, 0.08) 0%,
+    rgba(255, 201, 40, 0.02) 48%,
+    transparent 72%
+  );
+  filter: blur(52px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Header */
+.fanout__header {
+  text-align: center;
+  max-width: 660px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 5;
+}
+
+.fanout__title {
+  font-size: clamp(1.8rem, 3.4vw, 2.7rem);
+  font-weight: 800;
+  line-height: 1.14;
+  color: #ffffff;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.fanout__title-highlight {
+  color: var(--color-gold);
+  font-style: italic;
+  text-shadow: 0 0 26px rgba(255, 201, 40, 0.28);
+}
+
+.fanout__subtitle {
+  color: #b5b5b5;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.fanout__swish {
+  display: block;
+  margin: 6px auto 0;
+  width: 130px;
+  height: 14px;
+}
+
+/* The Fan Deck Stage */
+.fanout-stage {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  height: 440px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+}
+
+.fanout-deck {
+  position: relative;
+  width: 270px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Individual Card Wrapper */
+.fanout-card-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 270px;
+  height: 400px;
+  transform-origin: center 85%;
+  cursor: pointer;
+  will-change: transform;
+}
+
+.fanout-card-wrap--hovered {
+  filter: drop-shadow(0 20px 42px rgba(255, 201, 40, 0.22));
+}
+
+/* Card Visual Design */
+.fanout-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(165deg, #1b1914 0%, #101010 45%, #0a0a0a 100%);
+  border: 1px solid rgba(255, 201, 40, 0.32);
+  border-radius: 24px;
+  padding: 16px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 201, 40, 0.2);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.fanout-card__shine-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  background: linear-gradient(90deg, transparent 0%, #ffc928 50%, transparent 100%);
+}
+
+.fanout-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.fanout-card__badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  background: rgba(255, 201, 40, 0.1);
+  border: 1px solid rgba(255, 201, 40, 0.25);
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+}
+
+.fanout-card__price {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.fanout-card__media {
+  position: relative;
+  width: 100%;
+  height: 155px;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  background: #141414;
+}
+
+.fanout-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fanout-card-wrap:hover .fanout-card__img {
+  transform: scale(1.06);
+}
+
+.fanout-card__roast-pill {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  background: rgba(8, 8, 8, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 2px 7px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.fanout-card__body {
+  margin-bottom: 10px;
+}
+
+.fanout-card__name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+
+.fanout-card__tag {
+  font-size: 0.74rem;
+  color: var(--color-gold);
+  margin-bottom: 4px;
+}
+
+.fanout-card__notes {
+  font-size: 0.72rem;
+  color: #8e8e8e;
+  line-height: 1.35;
+}
+
+.fanout-card__footer {
+  margin-top: auto;
+}
+
+.fanout-card__btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #ffd142 0%, #ffc928 60%, #f5b700 100%);
+  color: #080808;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: var(--radius-pill);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+  cursor: pointer;
+}
+
+.fanout-card__btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(255, 201, 40, 0.45);
+  filter: brightness(1.05);
+}
+
+/* Bottom Scroll Cue */
+.fanout__footer {
+  position: relative;
+  z-index: 5;
+}
+
+.fanout__cue-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  background: rgba(20, 20, 20, 0.85);
+  border: 1px solid rgba(255, 201, 40, 0.32);
+  color: #e8d7a7;
+  font-size: 0.82rem;
+  font-weight: 600;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55);
+}
+
+.fanout__sparkle {
+  color: var(--color-gold);
+}
+
+/* Tablet & Mobile Responsiveness */
+@media (max-width: 768px) {
+  .fanout-container {
+    padding: 24px 0 32px;
+    min-height: auto;
+  }
+
+  .fanout-sticky {
+    padding: 0 14px;
+    gap: 14px;
+  }
+
+  .fanout__title {
+    font-size: 1.7rem;
+  }
+
+  .fanout-stage {
+    height: 350px;
+  }
+
+  .fanout-deck,
+  .fanout-card-wrap {
+    width: 205px;
+    height: 320px;
+  }
+
+  .fanout-card {
+    padding: 12px 12px 14px;
+    border-radius: 18px;
+  }
+
+  .fanout-card__media {
+    height: 110px;
+  }
+
+  .fanout-card__name {
+    font-size: 0.92rem;
+  }
+
+  .fanout-card__tag {
+    font-size: 0.7rem;
+  }
+
+  .fanout-card__notes {
+    display: none;
+  }
+
+  .fanout-card__btn {
+    padding: 6px 10px;
+    font-size: 0.76rem;
+  }
+
+  .fanout__cue-badge {
+    font-size: 0.75rem;
+    padding: 5px 12px;
+  }
+}
+

@@ -1,0 +1,75 @@
+.cta-section {
+  position: relative;
+  padding: 32px 0 64px;
+  z-index: 2;
+}
+
+.cta-banner {
+  position: relative;
+  background: linear-gradient(105deg, #ffd13b 0%, #ffc928 52%, #f4b809 100%);
+  border-radius: 32px;
+  padding: 36px 44px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 32px;
+  box-shadow: 0 26px 64px rgba(255, 201, 40, 0.18), 0 18px 40px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+
+.cta-banner__shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 32px;
+  background: radial-gradient(
+    circle at 86% 24%,
+    rgba(255, 255, 255, 0.34) 0%,
+    rgba(255, 255, 255, 0) 48%
+  );
+  pointer-events: none;
+}
+
+.cta-banner__copy {
+  position: relative;
+  z-index: 2;
+}
+
+.cta-banner__title {
+  font-size: clamp(1.55rem, 2.5vw, 2.05rem);
+  font-weight: 800;
+  color: #080808;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.cta-banner__desc {
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(12, 10, 6, 0.84);
+  line-height: 1.5;
+}
+
+.cta-banner__action {
+  position: relative;
+  z-index: 2;
+}
+
+.cta-banner__pin {
+  color: var(--color-gold);
+}
+
+@media (max-width: 720px) {
+  .cta-banner {
+    grid-template-columns: 1fr;
+    text-align: center;
+    justify-items: center;
+    padding: 30px 24px 32px;
+    gap: 20px;
+  }
+
+  .cta-banner__action {
+    justify-self: center;
+  }
+}
+

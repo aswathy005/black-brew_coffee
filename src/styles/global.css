@@ -109,28 +109,30 @@ ul {
   padding: 13px 26px;
   border-radius: var(--radius-pill);
   box-shadow: 0 6px 22px rgba(255, 201, 40, 0.26);
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.3s ease;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.28s ease;
   white-space: nowrap;
 }
 
-.btn-gold:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(255, 201, 40, 0.42), 0 0 22px rgba(255, 201, 40, 0.22);
-  filter: brightness(1.05);
+@media (hover: hover) and (pointer: fine) {
+  .btn-gold:hover {
+    transform: translateY(-2px) scale(1.015);
+    box-shadow: 0 10px 28px rgba(255, 201, 40, 0.42), 0 0 24px rgba(255, 201, 40, 0.24);
+    filter: brightness(1.04);
+  }
+
+  .btn-gold:hover .btn-arrow {
+    transform: translateX(4px);
+  }
 }
 
 .btn-gold:active {
-  transform: translateY(0) scale(0.98);
+  transform: translateY(0) scale(0.97);
 }
 
 .btn-gold .btn-arrow {
-  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.btn-gold:hover .btn-arrow {
-  transform: translateX(4px);
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-dark {
@@ -144,25 +146,73 @@ ul {
   font-size: 0.94rem;
   padding: 15px 28px;
   border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 201, 40, 0.22);
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.32);
-  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
     box-shadow 0.28s ease,
-    background-color 0.28s ease;
+    background-color 0.28s ease,
+    border-color 0.28s ease;
   white-space: nowrap;
 }
 
-.btn-dark:hover {
-  transform: translateY(-2px);
-  background: #141414;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+@media (hover: hover) and (pointer: fine) {
+  .btn-dark:hover {
+    transform: translateY(-2px) scale(1.015);
+    background: #141414;
+    border-color: rgba(255, 201, 40, 0.45);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45), 0 0 18px rgba(255, 201, 40, 0.12);
+  }
+
+  .btn-dark:hover .btn-arrow {
+    transform: translateX(4px);
+  }
+}
+
+.btn-dark:active {
+  transform: translateY(0) scale(0.97);
 }
 
 .btn-dark .btn-arrow {
-  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.btn-dark:hover .btn-arrow {
-  transform: translateX(4px);
+/* Subtle Outline Button */
+.btn--outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: transparent;
+  color: var(--color-gold);
+  border: 1.5px solid rgba(255, 201, 40, 0.45);
+  font-weight: 600;
+  font-size: 0.94rem;
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn--outline:hover {
+    background: rgba(255, 201, 40, 0.12);
+    border-color: var(--color-gold);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255, 201, 40, 0.18);
+  }
+
+  .btn--outline:hover .btn__icon-arrow {
+    transform: translateX(4px);
+  }
+}
+
+.btn--outline:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.btn--outline .btn__icon-arrow {
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Shared Section Eyebrow with Partial Gold Underline */
@@ -190,6 +240,35 @@ ul {
   height: 2px;
   border-radius: 2px;
   background: linear-gradient(90deg, var(--color-gold) 0%, rgba(255, 201, 40, 0.25) 100%);
+  transform-origin: left center;
+}
+
+/* Split text mask & word reveal helper styles */
+.split-text-container {
+  display: inline-block;
+}
+
+.split-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.split-word {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* Optional section title underline that grows from 0 to 100% */
+.title-underline {
+  display: block;
+  height: 2px;
+  width: 100%;
+  max-width: 120px;
+  background: linear-gradient(90deg, var(--color-gold) 0%, rgba(255, 201, 40, 0.25) 100%);
+  border-radius: 2px;
+  margin-top: 8px;
+  transform-origin: left center;
 }
 
 /* Modal Backdrop & Shell */
@@ -249,6 +328,91 @@ ul {
 
   .modal-panel {
     padding: 22px 18px;
+  }
+}
+
+/* Scroll Progress Beam Pinned at Viewport Top - Coffee Brown (#6F4E37) */
+.scroll-progress-beam {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3.5px;
+  background: #6F4E37;
+  background: linear-gradient(90deg, #4A2E1B 0%, #6F4E37 60%, #8D6347 100%);
+  box-shadow: 0 0 10px rgba(111, 78, 55, 0.7), 0 0 20px rgba(111, 78, 55, 0.4);
+  transform-origin: 0% 50%;
+  z-index: 10000;
+  pointer-events: none;
+}
+
+/* Floating Scroll-to-Top Button with Circular Progress Ring */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(14, 14, 14, 0.92);
+  border: 1px solid rgba(255, 201, 40, 0.35);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), 0 0 20px rgba(255, 201, 40, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--color-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 900;
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.scroll-top-btn:hover {
+  border-color: var(--color-gold);
+  background: #141414;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75), 0 0 28px rgba(255, 201, 40, 0.38);
+}
+
+.scroll-top-progress {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+
+.scroll-top-track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 2.5;
+}
+
+.scroll-top-fill {
+  fill: none;
+  stroke: var(--color-gold);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.scroll-top-icon {
+  position: relative;
+  z-index: 2;
+  transition: transform 0.25s ease;
+}
+
+.scroll-top-btn:hover .scroll-top-icon {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .scroll-top-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
   }
 }
 

@@ -1,0 +1,29 @@
+.floating-beans-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.floating-bean {
+  will-change: transform;
+  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.7));
+  transition: opacity 0.3s ease;
+}
+
+.floating-bean-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .floating-bean {
+    opacity: 0.35 !important;
+  }
+}
+

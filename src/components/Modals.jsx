@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { FULL_MENU_ITEMS, GALLERY_PHOTOS, CAFE_INFO } from '../data/coffeeData';
 import heroCoffeeImg from '../assets/images/hero-coffee.jpg';
+import { ClipReveal } from './animations/ClipReveal';
 import './Modals.css';
 
 function ModalShell({ isOpen, onClose, titleId, children }) {
@@ -141,7 +142,7 @@ export function OrderModal({ isOpen, onClose, cart, onUpdateCart, onClearCart })
               const qty = cart[item.id] || 0;
               return (
                 <div key={item.id} className="menu-modal__item">
-                  <img src={item.image} alt={item.name} className="menu-modal__thumb" />
+                  <img src={item.image} alt={item.name} className="menu-modal__thumb" loading="lazy" />
                   <div className="menu-modal__info">
                     <h3 className="menu-modal__name">{item.name}</h3>
                     <p className="menu-modal__desc">{item.description}</p>
@@ -229,6 +230,7 @@ export function GalleryModal({ isOpen, onClose }) {
               src={selectedPhoto.image}
               alt={selectedPhoto.title}
               style={{ width: '100%', maxHeight: '420px', objectFit: 'cover' }}
+              loading="lazy"
             />
           </motion.div>
           <div
@@ -291,7 +293,9 @@ export function GalleryModal({ isOpen, onClose }) {
               }}
               onClick={() => setSelectedPhoto(photo)}
             >
-              <img src={photo.image} alt={photo.title} className="gallery-tile__img" />
+              <ClipReveal direction="up" delay={0.04} duration={0.65}>
+                <img src={photo.image} alt={photo.title} className="gallery-tile__img" loading="lazy" />
+              </ClipReveal>
               <div className="gallery-tile__caption">
                 <span className="gallery-tile__cat">{photo.category}</span>
                 <span className="gallery-tile__title">{photo.title}</span>
@@ -505,3 +509,10 @@ export function LocationModal({ isOpen, onClose }) {
   );
 }
 
+export default {
+  OrderModal,
+  GalleryModal,
+  VideoModal,
+  StoryModal,
+  LocationModal,
+};
